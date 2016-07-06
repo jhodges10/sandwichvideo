@@ -1,7 +1,6 @@
-#v1.1
-#1.1 changes, newCut now returns a dict [status code, project name, dropbox cut]
+#v1.2
 
-print "Sandwich V1.1 loaded..."
+print "Sandwich V1.2 loaded..."
 
 import requests
 import json
@@ -24,8 +23,7 @@ def get_auth(csv_path):
     
 authy = get_auth('/Volumes/Sandwich/assets/python/auth.csv')
 api_key = authy['airtable sandwich projects']['api_key']
-
-atProjects = "https://api.airtable.com/v0/appMq4KXhfzqfLhoK/Projects"
+atProjects = authy['airtable sandwich projects']['api_url']
 
 def get_record_endpoints(view):
     fields = ["Project","Status","Latest Cut(s)"]
@@ -84,6 +82,3 @@ def newCut(project=False):
     code = updateLatestcut(project,new_cut)
     return_dict = {"status": code, "name": project, "link": new_cut}
     return return_dict
-
-    
-    
