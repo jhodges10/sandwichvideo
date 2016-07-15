@@ -40,8 +40,6 @@ def get_record_endpoints(view):
         record_endpoint_dict[projectinfo_dict["Project"]] = record_endpoint
             
     return record_endpoint_dict        
-                    
-
 
 def updateLatestcut(project, cut):
     record_endpoints = get_record_endpoints("Sandwich Post Projects")
@@ -54,7 +52,6 @@ def updateLatestcut(project, cut):
         return "Thanks for adding a cut."
     else: 
         return "ERROR " + r.status_code
-    
 
 def retrieve_record(api_url):
     params = {"api_key": api_key}

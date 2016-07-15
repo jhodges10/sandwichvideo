@@ -45,5 +45,3 @@ def fuzzy_dropbox(project):
     return dropbox_output_directory
     
 sync(sys.argv[1])
-#if __name__ == "__main__":
-#    sync(sys.argv[0])
