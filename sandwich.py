@@ -20,12 +20,15 @@ def get_auth(csv_path):
             service_dict[key] = token
         authy[service] = service_dict
     return authy 
-    
+
+
+#sandwich projects specific functions below
+
 authy = get_auth('/Volumes/Sandwich/assets/python/auth.csv')
 api_key = authy['airtable sandwich projects']['api_key']
 atProjects = authy['airtable sandwich projects']['api_url']
 
-def get_record_endpoints(view):
+def get_project_record_endpoints(view):
     fields = ["Project","Status","Latest Cut(s)"]
     params = {"api_key": api_key, "view": view }
 
@@ -42,7 +45,7 @@ def get_record_endpoints(view):
     return record_endpoint_dict        
 
 def updateLatestcut(project, cut):
-    record_endpoints = get_record_endpoints("Sandwich Post Projects")
+    record_endpoints = get_project_record_endpoints("Sandwich Post Projects")
     api_url = atProjects + "/" + record_endpoints[project]
     data = '{"fields": {"Latest Cuts":"' + cut + '"}}'
     headers = {'Authorization': 'Bearer ' + api_key, "Content-type": "application/json"}
@@ -60,7 +63,7 @@ def retrieve_record(api_url):
     print json_data, r.status_code
     
 def newCut(project=False):
-    record_endpoints = get_record_endpoints("Sandwich Post Projects")
+    record_endpoints = get_project_record_endpoints("Sandwich Post Projects")
     if project == False:
         record_array = []
         num = 1
@@ -79,3 +82,28 @@ def newCut(project=False):
     code = updateLatestcut(project,new_cut)
     return_dict = {"status": code, "name": project, "link": new_cut}
     return return_dict
+
+
+#general airtable functions below
+
+def updateRecord(baseURL, recordID, token, data):
+    api_url = baseURL + "/" + recordID
+    if "fields" in data:
+        #do the stuff
+        headers = {'Authorization': 'Bearer ' + token, "Content-type": "application/json"}
+        r = requests.patch(api_url, headers=headers, data=data)
+        json_data = json.loads(r.text)
+        if r.status_code == 200:
+            return True
+        else: 
+            return False
+    else:
+        print "Not valid JSON to add to airtable"
+        return False
+        
+def list_records(baseURL, token, tableName, data):
+    api_url = baseURL + "/" + tableName
+    headers = {'Authorization': 'Bearer ' + token, "Content-type": "application/json"}
+    r = requests.get(api_url, headers=headers, data=data)
+    json_data = json.loads(r.text)
+    print json_data, r.status_code
