@@ -24,7 +24,7 @@ def get_auth(csv_path):
 authy = get_auth('/Volumes/Sandwich/assets/python/auth.csv')
 api_key = authy['airtable sandwich projects']['api_key']
 atProjects = authy['airtable sandwich projects']['api_url']
-atVideos = auth['airtable sandwich videos']['api_url']
+atVideos = authy['airtable sandwich videos']['api_url']
 
 def get_video_record_endpoints(view):
     fields = ["Name","Latest Cut"]
