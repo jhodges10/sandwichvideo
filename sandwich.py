@@ -1,6 +1,6 @@
-#v1.2
+#v1.3
 
-print "Sandwich V1.2 loaded..."
+print "Sandwich V1.3 loaded..."
 
 import requests
 import json
@@ -55,7 +55,6 @@ def updateLatestcut(project, cut):
         return "Thanks for adding a cut."
     else: 
         return "ERROR " + r.status_code
-    
 
 def retrieve_record(api_url):
     params = {"api_key": api_key}
