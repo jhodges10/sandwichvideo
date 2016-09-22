@@ -2,7 +2,6 @@ import sandwich_1_4 as sandwich
 from fuzzywuzzy import process
 import sys
 
-import requests
 import json
 
 authy = sandwich.get_auth('/Volumes/Sandwich/assets/python/auth.csv')
