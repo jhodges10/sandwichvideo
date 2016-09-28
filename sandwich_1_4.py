@@ -98,7 +98,7 @@ def updateRecord(table_url, endpoint, data):
     else: 
         return False
 
-def get_record_endpoints(table_url, view, fields, keyname="Name"):
+def get_record_endpoints(table_url, view, keyname="Name"):
     params = {"api_key": api_key, "view": view }
     
     r = requests.get(table_url, params)
