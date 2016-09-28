@@ -97,7 +97,22 @@ def updateRecord(table_url, endpoint, data):
         return json_data
     else: 
         return False
+
+def get_record_endpoints(table_url, view, fields, keyname="Name"):
+    params = {"api_key": api_key, "view": view }
+    
+    r = requests.get(table_url, params)
+    json_data = json.loads(r.text)
+    records_array = json_data["records"]
+    
+    endpoint_dict = {}
+    for record in records_array:
+        record_endpoint = record["id"]
+        recordinfo_dict = record["fields"]
+        endpoint_dict[recordinfo_dict[keyname]] = record_endpoint
         
+    return endpoint_dict
+    
 def get_video_record_endpoints(view):
     fields = ["Name","Latest Cut"]
     params = {"api_key": api_key, "view": view }
