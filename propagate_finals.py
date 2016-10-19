@@ -26,10 +26,11 @@ db_access_token = authy['dropbox']['access_token']
 
 dropbox_client = dropbox.client.DropboxClient(db_access_token)
 
+
 places = {
-    'server_finals': '/Users/sanvidseven/Desktop/SERVER FINALS',
-    'dropbox_finals': '/Users/sanvidseven/Dropbox/SANDWICH FINALS',
-    'dropbox_share_root': '/Users/sanvidseven/Dropbox/Sandwich Projects'
+    'server_finals': '/Volumes/Sandwich/finals',
+    'dropbox_finals': '/Users/sanvidpro/Dropbox/SANDWICH FINALS',
+    'dropbox_share_root': '/Users/sanvidpro/Dropbox'
 }
 
 def mkdirnotex(filename):
@@ -56,9 +57,13 @@ def propagate(finals_path):
     project_list = project_endpoints.keys()
     video_list = video_endpoints.keys()
     
+    match_finals_path = finals_path.split('projects')[1]
+    match_finals_path = match_finals_path.split('finals')[0]
+    
     project = False
+
     for p in project_list:
-        if fuzz.partial_ratio(finals_path, p) > 90:
+        if fuzz.partial_ratio(match_finals_path, p) > 90:
             project = p
     
     if project:
